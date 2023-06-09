@@ -2,26 +2,50 @@ import { ImageBackground, SafeAreaView, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 
+// screens & constants
 import StartGameScreen from "./screens/StartGameScreen";
+import GameOverScreen from "./screens/GameOverScreen";
 import GameScreen from "./screens/GameScreen";
+import Colors from "./constants/colors";
 
 export default function App() {
   const [seçilmişSayı, seçilmişSayıAksiyonu] = useState();
+  const [gameOver, gameOverAksiyonu] = useState(true);
 
   function seçilmişSayıFonksiyonu(pickedNumber) {
     seçilmişSayıAksiyonu(pickedNumber);
+    // sayıyı seçtikten sonra gamover'ı false'luyoruz
+    gameOverAksiyonu(false);
+  }
+
+  function gameOverFonksiyonu() {
+    gameOverAksiyonu(true);
   }
 
   // state değiştikçe aşağıda tekrar çalışacak olan if bloğu
   let screen = (
     <StartGameScreen seçilmişSayıFonksiyonu={seçilmişSayıFonksiyonu} />
   );
+
   if (seçilmişSayı) {
-    screen = <GameScreen />;
+    screen = (
+      <GameScreen
+        gameOverFonksiyonu={gameOverFonksiyonu}
+        seçilmişSayı={seçilmişSayı}
+      />
+    );
+  }
+
+  // ortada seçilen bir sayı yoksa oyun bitiş ekranını açmasın lütfen
+  if (gameOver && seçilmişSayı) {
+    screen = <GameOverScreen />;
   }
 
   return (
-    <LinearGradient colors={["#4e0329", "#ddb52f"]} style={styles.rootScreen}>
+    <LinearGradient
+      colors={["#4e0329", Colors.accent500]}
+      style={styles.rootScreen}
+    >
       <ImageBackground
         source={require("./assets/images/background.png")}
         resizeMode="cover"
