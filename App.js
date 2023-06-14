@@ -1,6 +1,8 @@
 import { ImageBackground, SafeAreaView, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
 
 // screens & constants
 import StartGameScreen from "./screens/StartGameScreen";
@@ -11,6 +13,16 @@ import Colors from "./constants/colors";
 export default function App() {
   const [seçilmişSayı, seçilmişSayıAksiyonu] = useState();
   const [gameOver, gameOverAksiyonu] = useState(true);
+
+  // font konusunu yerel dosyalar ile bu şekilde düzenledik
+  const [fontlarYüklendi] = useFonts({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
+
+  if (!fontlarYüklendi) {
+    return <AppLoading />;
+  }
 
   function seçilmişSayıFonksiyonu(pickedNumber) {
     seçilmişSayıAksiyonu(pickedNumber);

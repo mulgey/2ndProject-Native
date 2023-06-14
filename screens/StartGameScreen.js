@@ -1,10 +1,12 @@
-import { TextInput, View, StyleSheet, Alert, Text } from "react-native";
+import { TextInput, View, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
 
 // components & constants
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Colors from "../constants/colors";
 import Title from "../components/ui/Title";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 
 export default function StartGameScreen({ seçilmişSayıFonksiyonu }) {
   const [girilenSayı, girilenSayıAksiyonu] = useState("");
@@ -45,8 +47,8 @@ export default function StartGameScreen({ seçilmişSayıFonksiyonu }) {
   return (
     <View style={styles.rootContainer}>
       <Title>Sayımı Tahmin Et</Title>
-      <View style={styles.inputContainer}>
-        <Text style={styles.instructionText}>Bir numara girin</Text>
+      <Card>
+        <InstructionText>Bir numara girin</InstructionText>
         {/* maxLength ve keyboardType prop'larını ekledik */}
         <TextInput
           style={styles.numberInput}
@@ -69,7 +71,7 @@ export default function StartGameScreen({ seçilmişSayıFonksiyonu }) {
             </PrimaryButton>
           </View>
         </View>
-      </View>
+      </Card>
     </View>
   );
 }
@@ -79,28 +81,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginTop: 100,
-  },
-  inputContainer: {
-    // main-axis (default: top to bottom)
-    justifyContent: "center",
-    // cross-axis, (default: left to right) opposite of the main axis
-    alignItems: "center",
-    padding: 16,
-    marginTop: 36,
-    marginHorizontal: 24,
-    borderRadius: 8,
-    backgroundColor: Colors.primary800,
-    // android shadow
-    elevation: 4,
-    // iOS shadow
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
-  },
-  instructionText: {
-    color: Colors.accent500,
-    fontSize: 24,
   },
   numberInput: {
     height: 50,

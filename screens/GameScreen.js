@@ -1,10 +1,13 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import { useEffect, useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
 
 // components
 import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 
 function generateRandomBetween(min, max, exclude) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -58,22 +61,29 @@ export default function GameScreen({ seçilmişSayı, gameOverFonksiyonu }) {
     <View style={styles.screen}>
       <Title>Rakibin Tahmini</Title>
       <NumberContainer>{mevcutTahmin}</NumberContainer>
-      <View>
-        <Text>Daha mı yüksek, daha mı düşük?</Text>
-        <View>
-          {/* yön parametresini eklemek için bind metodunu kullandık */}
-          <PrimaryButton
-            basımFonksiyonu={sonrakiTahminFonksiyonu.bind(this, "düşür")}
-          >
-            -
-          </PrimaryButton>
-          <PrimaryButton
-            basımFonksiyonu={sonrakiTahminFonksiyonu.bind(this, "yükselt")}
-          >
-            +
-          </PrimaryButton>
+      <Card>
+        {/* Bu kısımda style birleştirmesi örneği uyguladık (cascading nature) */}
+        <InstructionText style={styles.instructionText}>
+          Daha mı yüksek, daha mı düşük?
+        </InstructionText>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            {/* yön parametresini eklemek için bind metodunu kullandık */}
+            <PrimaryButton
+              basımFonksiyonu={sonrakiTahminFonksiyonu.bind(this, "düşür")}
+            >
+              <Ionicons name="md-remove" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              basımFonksiyonu={sonrakiTahminFonksiyonu.bind(this, "yükselt")}
+            >
+              <Ionicons name="md-add" size={24} color="white" />
+            </PrimaryButton>
+          </View>
         </View>
-      </View>
+      </Card>
       <View></View>
     </View>
   );
@@ -83,5 +93,14 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 40,
+  },
+  instructionText: {
+    marginBottom: 12,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+  },
+  buttonContainer: {
+    flex: 1,
   },
 });
