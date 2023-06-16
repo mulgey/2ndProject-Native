@@ -48,7 +48,9 @@ export default function StartGameScreen({ seçilmişSayıFonksiyonu }) {
     <View style={styles.rootContainer}>
       <Title>Sayımı Tahmin Et</Title>
       <Card>
-        <InstructionText>Bir numara girin</InstructionText>
+        <InstructionText style={{ textAlign: "center" }}>
+          1 ile 99 arasında bir sayı girin
+        </InstructionText>
         {/* maxLength ve keyboardType prop'larını ekledik */}
         <TextInput
           style={styles.numberInput}
