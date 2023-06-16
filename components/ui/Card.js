@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     // cross-axis, (default: left to right) opposite of the main axis
     alignItems: "center",
     padding: 16,
-    marginTop: 36,
+    marginTop: 15,
+    marginBottom: 20,
     marginHorizontal: 24,
     borderRadius: 8,
     backgroundColor: Colors.primary800,

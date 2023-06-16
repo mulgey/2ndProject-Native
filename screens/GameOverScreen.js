@@ -5,7 +5,11 @@ import Title from "../components/ui/Title";
 import Colors from "../constants/colors";
 import PrimaryButton from "../components/ui/PrimaryButton";
 
-export default function GameOverScreen() {
+export default function GameOverScreen({
+  seçilmişSayı,
+  roundSayısı,
+  startNewFonksiyonu,
+}) {
   return (
     <View style={styles.rootContainer}>
       <Title>OYUN BİTTİ !</Title>
@@ -16,11 +20,15 @@ export default function GameOverScreen() {
         />
       </View>
       <Text style={styles.summaryText}>
-        Telefonunuzun zekası <Text style={styles.highlightText}>Y</Text>{" "}
-        numarasını tahmin etmek için <Text style={styles.highlightText}>X</Text>{" "}
-        adet denemeye ihtiyaç duydu
+        Telefonunuzun şansı ve zekası{" "}
+        <Text style={styles.highlightText}>{seçilmişSayı}</Text> numarasını
+        tahmin etmek için{" "}
+        <Text style={styles.highlightText}>{roundSayısı}</Text> adet denemeye
+        ihtiyaç duydu
       </Text>
-      <PrimaryButton>Yeni Bir Oyuna Başla</PrimaryButton>
+      <PrimaryButton basımFonksiyonu={startNewFonksiyonu}>
+        Yeni Bir Oyuna Başla
+      </PrimaryButton>
     </View>
   );
 }

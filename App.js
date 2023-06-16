@@ -13,6 +13,7 @@ import Colors from "./constants/colors";
 export default function App() {
   const [seçilmişSayı, seçilmişSayıAksiyonu] = useState();
   const [gameOver, gameOverAksiyonu] = useState(true);
+  const [roundSayısı, roundSayısıAksiyonu] = useState(0);
 
   // font konusunu yerel dosyalar ile bu şekilde düzenledik
   const [fontlarYüklendi] = useFonts({
@@ -30,8 +31,18 @@ export default function App() {
     gameOverAksiyonu(false);
   }
 
-  function gameOverFonksiyonu() {
+  function gameOverFonksiyonu(kaçTaneRound) {
     gameOverAksiyonu(true);
+    // GameScreen'den gelen fonksiyon ile "roundSayısı"nı güncelledik
+    // aşağıda roundSayısı={roundSayısı} olarak bitiş ekranına gönderdik
+    roundSayısıAksiyonu(kaçTaneRound);
+  }
+
+  function startNewFonksiyonu() {
+    seçilmişSayıAksiyonu(null);
+    roundSayısıAksiyonu(0);
+    // bir yukarıdaki çalıştığı için aşağıdakini devre dışı bıraktık
+    // gameOverAksiyonu(true);
   }
 
   // state değiştikçe aşağıda tekrar çalışacak olan if bloğu
@@ -50,7 +61,13 @@ export default function App() {
 
   // ortada seçilen bir sayı yoksa oyun bitiş ekranını açmasın lütfen
   if (gameOver && seçilmişSayı) {
-    screen = <GameOverScreen />;
+    screen = (
+      <GameOverScreen
+        seçilmişSayı={seçilmişSayı}
+        roundSayısı={roundSayısı}
+        startNewFonksiyonu={startNewFonksiyonu}
+      />
+    );
   }
 
   return (
